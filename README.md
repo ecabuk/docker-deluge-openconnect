@@ -91,6 +91,8 @@ you should disable the `Classic Mode` from the `Preferences` > `Interface` > `Cl
 
 - [ ] Add support for port forwarding.
 - [ ] Add secondary local network option.
+- [ ] Add linux user support. (For new created files & to not run apps as root)
+- [ ] Add multiple server support. (Select a server from the list randomly)
 
 ## Inspired by
 - [binhex/arch-delugevpn](https://hub.docker.com/r/binhex/arch-delugevpn)
