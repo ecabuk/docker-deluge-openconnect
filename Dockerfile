@@ -35,4 +35,4 @@ ENV DELUGE_CONFIG_DIR=/config
 ENV DELUGE_DATA_DIR=/data
 ENV LOCAL_NETWORK=192.168.1.0/24
 
-CMD CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD CMD ["/usr/bin/supervisord"]

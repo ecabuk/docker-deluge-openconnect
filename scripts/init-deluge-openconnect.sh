@@ -88,6 +88,7 @@ ufw allow out from any to ${OPENCONNECT_SERVER_IP}
 
 # Allow access to deluge from local
 ufw allow from ${LOCAL_NETWORK} to any port 8112,58846 proto tcp
+ufw allow from ${GW_CIDR} to any port 8112,58846 proto tcp
 
 # Start openconnect
 supervisorctl start openconnect
