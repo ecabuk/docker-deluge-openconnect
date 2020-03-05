@@ -11,26 +11,19 @@ if [ ! -f "${OPENCONNECT_PASS_FILE}" ]; then
 fi
 
 # Create the configuration file
-if [ ! -f "${OPENCONNECT_CONFIG_FILE}" ]; then
-    cat > ${OPENCONNECT_CONFIG_FILE} <<EOF
+cat > ${OPENCONNECT_CONFIG_FILE} <<EOF
 user ${OPENCONNECT_USER}
 no-dtls
 EOF
+
+# Get server cert if not defined by variable
+if [ -z "${OPENCONNECT_SERVER_CERT}" ]; then
+	OPENCONNECT_SERVER_CERT=$(echo no | openconnect ${OPENCONNECT_SERVER} 2>&1 | grep servercert | awk '{print $2}')
+	echo Server certificate obtained ${OPENCONNECT_SERVER_CERT}
 fi
 
-# Check config file for `servercert` entry
-grep -q "^servercert" $OPENCONNECT_CONFIG_FILE
-
-if [ $? -eq "1" ]; then
-	# Get server cert if not defined by variable
-	if [ -z "${OPENCONNECT_SERVER_CERT}" ]; then
-		OPENCONNECT_SERVER_CERT=$(echo no | openconnect ${OPENCONNECT_SERVER} 2>&1 | grep servercert | awk '{print $2}')
-		echo Server certificate obtained ${OPENCONNECT_SERVER_CERT}
-	fi
-
-	# Save server cert fingerprint to config file
-	echo servercert ${OPENCONNECT_SERVER_CERT} >> ${OPENCONNECT_CONFIG_FILE}	
-fi
+# Save server cert fingerprint to config file
+echo servercert ${OPENCONNECT_SERVER_CERT} >> ${OPENCONNECT_CONFIG_FILE}	
 
 # Get default dns server
 DEFAULT_DNS=$(grep "nameserver" /etc/resolv.conf | head -n 1 | awk '{print $2}')
