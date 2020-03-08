@@ -32,17 +32,24 @@ docker run -d \
 
 ### Environment Variables
 
-| Variable                	| Default               	| Description                                                                           |
-|-------------------------	|-----------------------	|--------------------------------------------------------------------------------------	|
-| OPENCONNECT_SERVER      	| -                     	| (Required) VPN server host.                                                          	|
-| OPENCONNECT_USER        	| -                     	| (Required) VPN username.                                                              |
-| OPENCONNECT_PASS        	| -                     	| (Required, if password file is not used) VPN password.                                |
-| OPENCONNECT_PASS_FILE   	| /run/openconnect.pass 	| OpenConnect password file path.                           							|
-| OPENCONNECT_CONFIG_FILE 	| /run/openconnect.conf 	| OpenConnect config file path.															|
+| Variable                  | Default                   | Description                                                                           |
+|---------------------------|---------------------------|---------------------------------------------------------------------------------------|
+| OPENCONNECT_SERVER        | -                         | (Required) VPN server host.                                                           |
+| OPENCONNECT_USER          | -                         | (Required) VPN username.                                                              |
+| OPENCONNECT_PASS          | -                         | (Required, if password file is not used) VPN password.                                |
+| OPENCONNECT_PORT          | 443                       | OpenConnect server port.                                                              |
+| OPENCONNECT_SERVER_IP     | -                         | OpenConnect server ip. If you define, uses it instead of resolving.                   |
+| OPENCONNECT_PASS_FILE     | /run/openconnect.pass     | OpenConnect password file path.                                                       |
+| OPENCONNECT_CONFIG_FILE   | /run/openconnect.conf     | OpenConnect config file path.                                                         |
 | OPENCONNECT_SERVER_CERT   | -                         | Server certificate signature.                                                         |
-| LOCAL_NETWORK           	| 192.168.1.0/24        	| Your local network. It is required for the firewall settings.                         |
-| DELUGE_USER             	| -                     	| Deluge remote-user name.                                                              |
-| DELUGE_PASS             	| -                     	| Deluge remote-user password.                                                          |
+| LOCAL_NETWORK             | 192.168.1.0/24            | Your local network. It is required for the firewall settings.                         |
+| DELUGE_USER               | -                         | Deluge remote-user name.                                                              |
+| DELUGE_PASS               | -                         | Deluge remote-user password.                                                          |
+| DELUGE_PORT_BEGIN         | -                         | Starting incoming port.                                                               |
+| DELUGE_PORT_END           | -                         | Useful to give a range. If you have one open port, you don't need to defined this.    |
+| PUID                      | -                         | User id.                                                                              |
+| PGID                      | -                         | Group id.                                                                             |
+
 
 ### Password File
 
@@ -89,9 +96,9 @@ you should disable the `Classic Mode` from the `Preferences` > `Interface` > `Cl
 
 ## Todo
 
-- [ ] Add support for port forwarding.
+- [x] Add support for port forwarding.
 - [ ] Add secondary local network option.
-- [ ] Add linux user support. (For new created files & to not run apps as root)
+- [x] Add linux user support. (For new created files & to not run apps as root)
 - [ ] Add multiple server support. (Select a server from the list randomly)
 
 ## Inspired by

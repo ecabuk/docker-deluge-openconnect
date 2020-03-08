@@ -25,11 +25,21 @@ COPY scripts/* /usr/local/bin/
 # OpenConnect Hooks
 COPY vpnc/post-connect.d/* /etc/vpnc/post-connect.d/
 
+# Set deluge interface after connection
+COPY scripts/set-deluge-listen-interface.sh /etc/vpnc/post-connect.d/
+COPY scripts/set-deluge-listen-interface.sh /etc/vpnc/reconnect.d/
+
 # Default Environment Variables
 ENV OPENCONNECT_PASS_FILE=/run/openconnect.pass
 ENV OPENCONNECT_CONFIG_FILE=/run/openconnect.conf
+ENV OPENCONNECT_PORT=443
 ENV DELUGE_CONFIG_DIR=/config
 ENV DELUGE_DATA_DIR=/data
 ENV LOCAL_NETWORK=192.168.1.0/24
 
+RUN useradd deluge
+
+COPY entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/supervisord"]
